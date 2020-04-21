@@ -31,6 +31,25 @@ namespace DbMigration
             }
         }
 
+        public void AddSorted(int data)
+        {
+            if(next==null)
+            {
+                next = new Noda(data);
+            }
+            else if(data < next.data)
+            {
+                Noda temp = new Noda(data);
+                temp.next = this.next;
+                this.next = temp;       
+            }
+
+            else
+            {
+                next.AddSorted(data);
+            }
+        }
+
         public void Print()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -66,6 +85,21 @@ namespace DbMigration
             }
         }
 
+        public void AddtoBegin(int data)
+        {
+            if (Head == null)
+            {
+                Head = new Noda(data);
+            }
+
+            else
+            {
+                Noda temp = new Noda(data);
+                temp.next = Head;
+                Head = temp;
+            }
+        }
+
         public void Print()
         {            
             if (Head != null)
@@ -73,6 +107,24 @@ namespace DbMigration
                 Head.Print();
             }
 
+        }
+
+        public void AddSorted(int data)
+        {
+            if(Head==null)
+            {
+                Head = new Noda(data);
+            }
+
+            else if(data < Head.data)
+            {
+                AddtoBegin(data);
+            }
+
+            else
+            {
+                Head.AddSorted(data);
+            }
         }
     }
 
@@ -89,11 +141,11 @@ namespace DbMigration
             //x.AddtoEnd(3);
             //x.AddtoEnd(4);
             //x.AddtoEnd(5);
-            x.AddtoEnd(4);
-            x.AddtoEnd(5);
-            x.AddtoEnd(2);
-            x.AddtoEnd(54);
-            x.AddtoEnd(41);
+            x.AddSorted(4);
+            x.AddSorted(5);
+            x.AddSorted(2);
+            x.AddSorted(54);
+            x.AddSorted(41);
             x.Print();           
             Console.ReadLine();
         }
